@@ -9,7 +9,7 @@ import User from '../models/User.js';
 const googleStrategy = new GoogleStrategy.Strategy ({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.DEPLOY_URL + "auth/google/callback"
+    callbackURL: process.env.DEPLOY_URL + "/auth/google/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
     console.log("User authenticated through Google. In passport callback.");

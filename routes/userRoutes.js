@@ -152,7 +152,7 @@ userRoute.put('/users/:userId',  async (req, res, next) => {
                                             {$set: req.body});
         if (status.modifiedCount != 1) { //account could not be found
             console.log("status: " + JSON.stringify(status));
-            res.status(404).send("Account not updated. Either no account with that id"
+            res.status(409).send("Account not updated. Either no account with that id"
                 + " exists, or no value in the account was changed.");
         } else {
             res.status(200).send("User account " + req.params.userId + 

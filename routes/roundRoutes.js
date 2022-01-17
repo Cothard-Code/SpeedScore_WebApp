@@ -95,7 +95,7 @@ roundRoute.put('/rounds/:roundId',  async (req, res, next) => {
     let status = await User.updateOne({"rounds._id": req.params.roundId},{$set: temp});
     if (status.modifiedCount != 1) { //account could not be found
         console.log("status: " + JSON.stringify(status));
-        res.status(404).send("Account not updated. Either no account with that id"
+        res.status(401).send("Account not updated. Either no account with that id"
             + " exists, or no value in the account was changed.");
     } else {
         res.status(200).send("Round "+ 

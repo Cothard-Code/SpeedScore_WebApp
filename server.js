@@ -38,9 +38,6 @@ mongoose.connect(connectStr, {useNewUrlParser: true, useUnifiedTopology: true})
 /////////////////////////////////////////////////////////////////////////
 
 passportConfig(app); //Configure session and passport
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
 app
   .use(express.static(buildPath))
   .use(express.json({limit: '20mb'}))

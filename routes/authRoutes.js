@@ -25,7 +25,8 @@ authRoute.get('/auth/github/callback', passport.authenticate('github', { failure
 //AUTHENTICATE route: Uses passport to authenticate with Google.
 //Should be accessed when user clicks on 'Login with Google' button on 
 //Log In page.
-authRoute.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+//authRoute.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+authRoute.get('/auth/google', passport.authenticate('google'));
 
 //CALLBACK route:  GitHub will call this route after the
 //OAuth authentication process is complete.

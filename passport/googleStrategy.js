@@ -3,15 +3,69 @@
 //The following code sets up the app with OAuth authentication using
 //the 'google' strategy in passport.js.
 //////////////////////////////////////////////////////////////////////////
-import GoogleStrategy from 'passport-google-oauth2'; 
+import { GoogleLogin } from "react-google-login";
 import User from '../models/User.js';
 
-const googleStrategyy = new GoogleStrategy.Strategy ({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.DEPLOY_URL + "/auth/google/callback"
+// Render GoogleLogin component
+const googleStrategy = new GoogleLogin({
+  clientId: process.env.GOOGLE_CLIENT_ID,
+  buttonText: "Login with Google",
+  onSuccess: async (response) => {
+    console.log("User authenticated through Google. In passport callback.");
+    //Our convention is to build userId from displayName and provider
+    const userId = `${response.profileObj.name}@${response.profileObj.provider}`;
+    //See if document with this unique userId exists in database
+    let currentUser = await User.findOne({"accountData.id": userId});
+    if (!currentUser) { //Add this user to the database
+      currentUser = await new User({
+        accountData: {id: userId},
+        identityData: {displayName: response.profileObj.name,
+                        profilePic: response.profileObj.imageUrl},
+        speedgolfData: {bio: "",
+                        homeCourse: "",
+                        personalBest: {},
+                        clubs: {},
+                        clubComments: ""}
+      }).save();
+    }
+    return done(null,currentUser);
   },
-  async (accessToken, refreshToken, profile, done) => {
+  onFailure: (response) => {
+    console.log("User failed to authenticate through Google. In passport callback.");
+    return done(null,false);
+  }
+});
+
+
+/* const googleClient = new OAuth2Client({
+  clientId: `${process.env.GOOGLE_CLIENT_ID}`,
+});
+
+const authenticateUser = async (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  const ticket = await googleClient.verifyIdToken({
+    idToken: token,
+    audient: `${process.env.GOOGLE_CLIENT_ID}`,
+  });
+
+  const payload = ticket.getPayload();
+
+  let user = await User.findOne({ email: payload?.email });
+  if (!user) {
+    user = await new User({
+      email: payload?.email,
+      avatar: payload?.picture,
+      name: payload?.name,
+    });
+
+    await user.save();
+  }
+
+  res.json({ user, token });
+}; */
+
+/* 
     console.log("User authenticated through Google. In passport callback.");
     //Our convention is to build userId from displayName and provider
     const userId = `${profile.id}@gmail.com`;
@@ -32,6 +86,6 @@ const googleStrategyy = new GoogleStrategy.Strategy ({
     return done(null,currentUser);
 }
 
-);
+); */
 
-export default googleStrategyy;
+export default googleStrategy;

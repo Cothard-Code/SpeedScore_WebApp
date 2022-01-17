@@ -1,0 +1,50 @@
+{
+  "name": "speedscore-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon --exec node -r dotenv/config server.js",
+    "start": "node -r dotenv/config server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FSWebDevBook/speedscore-book.git"
+  },
+  "keywords": [
+    "heroku",
+    "react",
+    "express",
+    "node"
+  ],
+  "author": "C. Hundhausen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FSWebDevBook/speedscore-book/issues"
+  },
+  "homepage": "https://github.com/FSWebDevBook/speedscore-book#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.12",
+    "passport": "^0.5.0",
+    "passport-github": "^1.1.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "nodemon": "^2.0.14"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "type": "module"
+}

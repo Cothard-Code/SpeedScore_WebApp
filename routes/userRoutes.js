@@ -16,7 +16,7 @@ userRoute.get('/users/:userId', async(req, res, next) => {
     try {
       let thisUser = await User.findOne({"accountData.id": req.params.userId});
       if (!thisUser) {
-        return res.status(404).send("No user account with id " +
+        return res.status(405).send("No user account with id " +
           req.params.userId + " was found in database.");
       } else {
         return res.status(200).json(JSON.stringify(thisUser));
@@ -171,7 +171,7 @@ userRoute.delete('/users/:userId', async(req, res, next) => {
     try {
       let status = await User.deleteOne({"accountData.id": req.params.userId});
       if (status.deletedCount != 1) {
-        return res.status(404).send("No user account " +
+        return res.status(406).send("No user account " +
           req.params.userId + " was found. Account could not be deleted.");
       } else {
         return res.status(200).send("User account " +

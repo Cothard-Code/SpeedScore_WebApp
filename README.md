@@ -1,4 +1,4 @@
-# Individual Assignment #8
+# SpeedScore WebApp
 
 ## Author
 Aaron Cothard
